@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  api-service:
+    build:
+      context: ./../api-service
+      dockerfile: ./../api-service/Dockerfile.dev
+    restart: always
+    ports:
+      - "9990:80"
+    deploy:
+      mode: replicated
+      replicas: 1

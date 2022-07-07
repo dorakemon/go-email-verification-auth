@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "./api-service"
+		},
+		{
+			"path": "./email-service"
+		},
+		{
+			"path": "./project"
+		}
+	]
+}
