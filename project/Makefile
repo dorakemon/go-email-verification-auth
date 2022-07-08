@@ -17,7 +17,7 @@ up_build: build_api
 ## down: stop docker compose
 down:
 	@echo "Stopping docker compose..."
-	docker-compose down
+	docker-compose -f docker-compose.development.yaml down
 	@echo "Done!"
 
 ## build_broker: builds the api binary as a linux executable

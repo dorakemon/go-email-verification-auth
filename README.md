@@ -15,3 +15,4 @@ make down
 ## Todo
 
 - [ ] setup rabbitmq
+- [ ] email service
