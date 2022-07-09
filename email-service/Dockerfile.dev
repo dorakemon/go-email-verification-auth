@@ -1,0 +1,7 @@
+FROM alpine:latest
+
+RUN mkdir /app
+
+COPY emailService.out /app
+
+CMD [ "/app/emailService.out" ]

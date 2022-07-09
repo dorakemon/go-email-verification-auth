@@ -19,6 +19,8 @@ services:
     build:
       context: ./../email-service
       dockerfile: ./../email-service/Dockerfile.dev
+    env_file:
+      - ./../email-service/.env
     depends_on:
       - rabbitmq
     restart: always
