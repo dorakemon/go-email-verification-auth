@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CheckOtpController(c echo.Context) error {
+func (config *Config) CheckOtpController(c echo.Context) error {
 	otp := c.FormValue("otp")
 	cookie, err := c.Cookie("email_verification")
 	if err != nil {

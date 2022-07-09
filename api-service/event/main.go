@@ -1,35 +1,23 @@
-package main
+package event
 
 import (
-	"api-service/cmd/server/controllers"
-	"api-service/cmd/server/router"
+	"encoding/json"
 	"fmt"
-	"html/template"
-	"io"
 	"log"
 	"math"
 	"os"
 	"time"
 
-	"github.com/labstack/echo/v4"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
+type EmailPayload struct {
+	To      string `json:"to"`
+	Subject string `json:"subject"`
+	Content string `json:"content"`
 }
 
 func main() {
-	e := echo.New()
-	renderer := &Template{
-		templates: template.Must(template.ParseGlob("/app/templates/*.go.html")),
-	}
-	e.Renderer = renderer
-
 	rabbitConn, err := connect()
 	if err != nil {
 		log.Println(err)
@@ -37,10 +25,29 @@ func main() {
 	}
 	defer rabbitConn.Close()
 
-	config := &controllers.Config{Conn: rabbitConn}
-	e = router.InitRouter(e, config)
+	producer, err := NewEventProducer(rabbitConn)
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 
-	e.Logger.Fatal(e.Start(":80"))
+	payload := EmailPayload{
+		To:      "kexwaz113@gmail.com",
+		Subject: "Verification Code",
+		Content: "Verification Code is \n 122345",
+	}
+
+	j, err := json.MarshalIndent(&payload, "", "\t")
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+
+	err = producer.Push(string(j), "email.register")
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 }
 
 func connect() (*amqp.Connection, error) {
@@ -50,7 +57,7 @@ func connect() (*amqp.Connection, error) {
 
 	// don't continue until rabbit is ready
 	for {
-		c, err := amqp.Dial("amqp://guest:guest@rabbitmq:5672/")
+		c, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 		if err != nil {
 			fmt.Println("RabbitMQ not yet ready...")
 			counts++

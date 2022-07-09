@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/AfterShip/email-verifier v1.3.0
 	github.com/labstack/echo/v4 v4.7.2
+	github.com/rabbitmq/amqp091-go v1.3.4
 	github.com/rs/xid v1.4.0
 )
 

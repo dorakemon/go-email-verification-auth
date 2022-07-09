@@ -3,5 +3,6 @@ FROM alpine:latest
 RUN mkdir /app
 
 COPY apiServer.out /app
+COPY cmd/server/templates /app/templates
 
 CMD [ "/app/apiServer.out" ]

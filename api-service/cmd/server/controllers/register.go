@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func RegisterController(c echo.Context) error {
+func (config *Config) RegisterController(c echo.Context) error {
 	username := c.FormValue("username")
 	email := c.FormValue("email")
 	password := c.FormValue("password")
