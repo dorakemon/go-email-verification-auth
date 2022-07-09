@@ -2,6 +2,16 @@
 
 ## setup
 
+
+### add `email-services/.env`
+
+```sh
+FROM_MAIL=[gmail address for sending something]
+GMAIL_PASS=[gmail password]
+```
+
+### build
+
 ```sh
 make up_build
 ```
