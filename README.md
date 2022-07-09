@@ -24,5 +24,5 @@ make down
 
 ## Todo
 
-- [ ] setup rabbitmq
-- [ ] email service
+- [x] setup rabbitmq
+- [x] email service
