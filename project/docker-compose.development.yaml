@@ -9,6 +9,19 @@ services:
     restart: always
     ports:
       - "9990:80"
+    depends_on:
+      - rabbitmq
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  email-service:
+    build:
+      context: ./../email-service
+      dockerfile: ./../email-service/Dockerfile.dev
+    depends_on:
+      - rabbitmq
+    restart: always
     deploy:
       mode: replicated
       replicas: 1
