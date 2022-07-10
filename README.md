@@ -1,7 +1,16 @@
 # Golang Authentication Email Verification
 
-## setup
+## description
 
+user authentication service written by go
+
+using...
+- email&password auth
+- verify email address by sending One Time Password (OTP)
+- RabbitMQ for message broker
+- 2 microservices
+
+## setup
 
 ### add `email-services/.env`
 
@@ -24,5 +33,5 @@ make down
 
 ## Todo
 
-- [ ] setup rabbitmq
-- [ ] email service
+- [x] setup rabbitmq
+- [x] email service
